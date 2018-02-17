@@ -5,17 +5,21 @@
 ### 1.1 
 Quando usamos o `/dev/random` verificamos que o computador bloqueia se não existir entropia suficiente na _entropy pool_. Assim, para tentar gerar entropia foram feitas pesquisas e downloads na web, movimentos do rato e digitaram-se caracteres no teclado. Verificou-se que a geração de uma sequência aleatória de 1024 bytes foi bastante demorada. A título experimental, gerou-se uma sequência aleatória de 40 bytes e verificou-se que o tempo necessário para a geração desta era bastante inferior. Este facto leva-nos a supor que o tempo necessário para gerar as sequências é dependente da entropia existente na _entropy pool_.
 
-Uma vez que o `/dev/urandom` é independente da fonte de entropia a obtenção das sequências aleatórias foi imeadiata, como seria expectável. Após uma breve pesquisa, ficamos a saber que no entanto estes valores obtidos quando não há entropia suficiente são _teoricamente_ vulneráveis, apesar de não existir literatura que o prove.
+Quando utilizamos o `/dev/urandom` obtiveram-se imediatamente as sequências pseudo-aleatórias. Isto deve-se ao facto do `/dev/urandom` reutilizar a _entropy pool_ para produzir mais bits aleatórios e, por essa razão, não bloqueia se não existir entropia suficiente.
+No entanto estes valores obtidos quando não há entropia suficiente são _teoricamente_ vulneráveis, apesar de não existirem _exploits_ conhecidos.
 
-Assim, apesar de `/dev/urandom` ser criptograficamente seguro ele apenas deve ser utilizado quando a rapidez for valorizada no desenvolvimento da aplicação que irá utilizar o gerador. Quando a aplicaçaõ precisar de segurança elevada a outra opção será mais indicada.
+Assim, apesar do `/dev/urandom` ser criptograficamente seguro, apenas deve ser utilizado quando o desempenho obtido com o uso do `/dev/random/` não satisfizer os
+requisitos da aplicação.
 
 ### 1.2
 
 Depois de instalar o package `haveged`, a obtenção das sequências aleatórias (mesmo com 1024 bytes) foi imediata.
 
-O `haveged` utiliza a informação do estado interno dos componentes de hardware como fonte de entropia, permite que a recolha de entropia seja feita de forma mais rápida dado que existe uma fonte maior.
+Segundo a página do projeto, o `haveged` utiliza a informação do estado interno dos componentes de hardware como fonte de entropia. Desta forma, permite que a recolha de entropia seja feita de forma mais rápida dado que existem mais fontes.
 
-Assim, podemos confirmar a nossa suposição de que o tempo de geração de sequências aleatórias será menor quanta maior for a entropia disponivel.
+Assim, podemos confirmar a nossa suposição de que o tempo de geração de sequências aleatórias será tanto menor quanto maior for o número de fontes de entropia disponiveis.
+
+
 
 ## 4 - Algoritmos e tamanhos de chaves
 ### Grupo 4 - Hungria, para as três ECs que emitem certificados "QCert for ESig"
