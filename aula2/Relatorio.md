@@ -87,7 +87,21 @@ perl reconstruct.pl
 ```
 passando-se de seguida as partes do segredo. Verificou-se que se se passarem menos de duas partes, o programa produz uma mensagem de erro, avisando de que o número de partes é insuficiente. Caso se passem mais do que duas, as partes que estão a mais são ignoradas e produz-se o resultado correto. O mesmo acontece quando se passam duas partes. 
 
+### Pergunta 2.1
 
+**A** - Uma vez que um dos argumentos do programa é a chave privada, foi gerado um novo par de chaves através do comando ```openssl genrsa -aes128 -out mykey.pem 1024```, com a _password_ "1234". De seguida, executou-se o programa usando o comando ```python createSharedSecret-app.py 7 3 m1 mykey.pem```. O programa pediu a introdução da _password_ da chave privada ("1234") e de seguida o segredo, sendo que introduzimos: "Agora temos um segredo muito confidencial".
+
+**B** - Ambos os programas ```recoverSecretFromComponents-app.py``` e ```recoverSecretFromAllComponents-app.py``` pedem como argumento o certificado correspondente à chave gerada no passo anterior. Assim, o primeiro passo foi a geração do certificado através do comando ```openssl req -key mykey.pem -new -x509 -days 365 -out mykey.crt```.
+
+- ```python recoverSecretFromComponents-app.py 3 m1 mykey.crt```
+
+  Ao correr este comando de seguida foram introduzidos 3 componentes e recupera-se o segredo "Agora temos um segredo muito confidencial". Também se experimentou correr o programa com um número inferior ao _quorum_, com apenas 2 componentes, e verificou-se que dava erro. 
+
+- ```python recoverSecretFromAllComponents-app.py 7 m1 mykey.crt```
+
+  Depois de se introduzirem os 7 componentes verificou-se que o segredo "Agora temos um segredo muito confidencial" era recuperado. 
+
+O primeiro é usado em situações que se pretenda que o segredo possa ser recuperado com pelo menos _quorum_ utilizadores, não sendo necessário todos os componentes nos quais o segredo foi dividido. O segundo deverá ser usado apenas quando se pretenda que sejam necessárias todas as _n_ partes nas quais o segredo foi dividido para que seja possível recuperá-lo.
 
 
 
