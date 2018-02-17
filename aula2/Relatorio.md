@@ -54,15 +54,49 @@ return secret
 
 ## 2 - Partilha/Divisão de segredo (Secret Sharing/Splitting)
 
-### Pergunta 2.1
-
+### Experiência 2.1
+Para dividir o segredo _EngenhariaSegurança_ por duas pessoas, invocou-se o comnado
 ```bash
-
+php genSharedSecret.php EngenhariaSegurança 2
 ```
+que produziu o seguinte _ouput_:
+```bash
+Codigo 0: 0011000000100001111000000101101010010000111111101011010110011110011101001110101011010000111111101110110011110100000111010001101101111100100000011000110011011100 
+Codigo 2: 0111010101001111100001110011111111111110100101101101010011101100000111011000101110000011100110111000101110000001011011110111101000010010010000100010101110111101
+```
+Pode-se verificar que é possível obter o segredo a partir das duas sequências geradas. Para tal basta usar o comando 
+```bash
+php reconstroiSecret.php 0011000000100001111000000101101010010000111111101011010110011110011101001110101011010000111111101110110011110100000111010001101101111100100000011000110011011100 0111010101001111100001110011111111111110100101101101010011101100000111011000101110000011100110111000101110000001011011110111101000010010010000100010101110111101
+```
+Este comando produz o resultado original.
+Ao passarmos as duas sequências obtidas e uma terceira (neste caso, replicamos uma das sequências), obtem-se um resultado errado. O mesmo se verifica se só passarmos uma das sequências.
+
+### Experiência 2.2
+No segundo caso, utilizou-se o seguinte comando para dividir o mesmo exemplo 
+da experiência anterior por 3 pessoas, sendo apenas necessário 
+2 para reaver o segredo:
+```bash
+echo EngenhariaSeguranca | ./shares.pl 2 3 
+```
+que por sua vez, produziu o seguinte _output_:
+```bash
+2:1:85641a056309a8b813d9fda692e70e9bbc1e2d:
+2:2:c55acea658abeffebe50a6e7bd58abd509dafa:
+2:3:045081464d4c354368c84f27e8ca470e5795c6:
+```
+Para reaver o segredo, fez-se
+```bash
+perl reconstruct.pl
+```
+passando-se de seguida as partes do segredo.
+Verificou-se que se se passarem menos de duas partes, o programa produz uma
+mensagem de erro, avisando de que o número de partes é insuficiente.
+Caso se passem mais do que duas, as partes que estão a mais são ignoradas e produz-se o resultado correto. O mesmo acontece quando se passam duas partes. 
 
 
 
-## 4 - Algoritmos e tamanhos de chaves
+
+#le4 - Algoritmos e tamanhos de chaves
 ### Grupo 4 - Hungria, para as três ECs que emitem certificados "QCert for ESig"
 
 Na Hungria as três ECs que emitem certificados _QCert for ESig_ são:
