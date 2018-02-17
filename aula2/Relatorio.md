@@ -68,13 +68,10 @@ Pode-se verificar que é possível obter o segredo a partir das duas sequências
 ```bash
 php reconstroiSecret.php 0011000000100001111000000101101010010000111111101011010110011110011101001110101011010000111111101110110011110100000111010001101101111100100000011000110011011100 0111010101001111100001110011111111111110100101101101010011101100000111011000101110000011100110111000101110000001011011110111101000010010010000100010101110111101
 ```
-Este comando produz o resultado original.
-Ao passarmos as duas sequências obtidas e uma terceira (neste caso, replicamos uma das sequências), obtem-se um resultado errado. O mesmo se verifica se só passarmos uma das sequências.
+Este comando produz o resultado original. Ao passarmos as duas sequências obtidas e uma terceira (neste caso, replicamos uma das sequências) obtem-se um resultado errado. O mesmo se verifica se só passarmos uma das sequências.
 
 ### Experiência 2.2
-No segundo caso, utilizou-se o seguinte comando para dividir o mesmo exemplo 
-da experiência anterior por 3 pessoas, sendo apenas necessário 
-2 para reaver o segredo:
+No segundo caso, utilizou-se o seguinte comando para dividir o mesmo exemplo da experiência anterior por 3 pessoas, sendo apenas necessário 2 para reaver o segredo:
 ```bash
 echo EngenhariaSeguranca | ./shares.pl 2 3 
 ```
@@ -88,15 +85,14 @@ Para reaver o segredo, fez-se
 ```bash
 perl reconstruct.pl
 ```
-passando-se de seguida as partes do segredo.
-Verificou-se que se se passarem menos de duas partes, o programa produz uma
-mensagem de erro, avisando de que o número de partes é insuficiente.
-Caso se passem mais do que duas, as partes que estão a mais são ignoradas e produz-se o resultado correto. O mesmo acontece quando se passam duas partes. 
+passando-se de seguida as partes do segredo. Verificou-se que se se passarem menos de duas partes, o programa produz uma mensagem de erro, avisando de que o número de partes é insuficiente. Caso se passem mais do que duas, as partes que estão a mais são ignoradas e produz-se o resultado correto. O mesmo acontece quando se passam duas partes. 
 
 
 
 
-#le4 - Algoritmos e tamanhos de chaves
+
+
+#4 - Algoritmos e tamanhos de chaves
 ### Grupo 4 - Hungria, para as três ECs que emitem certificados "QCert for ESig"
 
 Na Hungria as três ECs que emitem certificados _QCert for ESig_ são:
