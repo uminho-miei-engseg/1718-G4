@@ -103,6 +103,35 @@ passando-se de seguida as partes do segredo. Verificou-se que se se passarem men
 
 O primeiro é usado em situações que se pretenda que o segredo possa ser recuperado com pelo menos _quorum_ utilizadores, não sendo necessário todos os componentes nos quais o segredo foi dividido. O segundo deverá ser usado apenas quando se pretenda que sejam necessárias todas as _n_ partes nas quais o segredo foi dividido para que seja possível recuperá-lo.
 
+## 3 - Authenticated Encryption
+
+### Pergunta 3.1
+
+O grupo optou por não garantir a confidencialidade da _tag_ uma vez que se pretende que o utilizador consiga ver a mesma antes de desencriptar o criptograma.
+
+```python
+hash_secret = getRandomBytes(16)
+
+def Cipher(tag, segredo)
+	date = get_current_date()
+    key = getKeyFromDate(date)
+	cypher_text = cifra(segredo,key)
+    
+    h = hmac(hash_secret, tag+date+cypher_text)
+    
+    cypher = {'hash' : h , 'tag' : tag , 'date' : date , 'mess' : cypher_text}
+    return cypher
+    
+def Decypher(cypher)
+	if(cypher['hash'] == hmac(hash_secret, cypher['tag']+cypher['date']+cypher['mess']))
+		key = getKeyFromDate(cypher['date'])
+		segredo = decifra(cypher['mess'],key)
+        return segredo
+    return None
+```
+
+
+
 
 
 
