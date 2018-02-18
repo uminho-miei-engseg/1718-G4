@@ -135,7 +135,7 @@ def Decypher(cypher):
 
 
 
-# 4 - Algoritmos e tamanhos de chaves
+## 4 - Algoritmos e tamanhos de chaves
 ### Grupo 4 - Hungria, para as três ECs que emitem certificados "QCert for ESig"
 
 Na Hungria as três ECs que emitem certificados _QCert for ESig_ são:
