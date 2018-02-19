@@ -53,7 +53,6 @@ def load_settings(settings_file):
     return blindComponents, pRComponents
 
 def showResults(errorCode, validSignature):
-    print("Output")
     if (errorCode is None):
         if (validSignature):
             print("Valid signature")
@@ -70,7 +69,6 @@ def showResults(errorCode, validSignature):
 
 def main(eccPublicKeyPath, data, signature, req_file):
     pemPublicKey = utils.readFile(eccPublicKeyPath)
-    print("Input")
     blindComponents, pRComponents = load_settings(req_file)
     errorCode, validSignature = eccblind.verifySignature(pemPublicKey, signature, blindComponents, pRComponents, data)
     showResults(errorCode, validSignature)
