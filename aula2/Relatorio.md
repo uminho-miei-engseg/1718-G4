@@ -55,7 +55,7 @@ return secret
 ## 2 - Partilha/Divisão de segredo (Secret Sharing/Splitting)
 
 ### Experiência 2.1
-Para dividir o segredo _EngenhariaSegurança_ por duas pessoas, invocou-se o comnado
+Para dividir o segredo _EngenhariaSegurança_ por duas pessoas, invocou-se o comando
 ```bash
 php genSharedSecret.php EngenhariaSegurança 2
 ```
@@ -103,18 +103,50 @@ passando-se de seguida as partes do segredo. Verificou-se que se se passarem men
 
 O primeiro é usado em situações que se pretenda que o segredo possa ser recuperado com pelo menos _quorum_ utilizadores, não sendo necessário todos os componentes nos quais o segredo foi dividido. O segundo deverá ser usado apenas quando se pretenda que sejam necessárias todas as _n_ partes nas quais o segredo foi dividido para que seja possível recuperá-lo.
 
+## 3 - Authenticated Encryption
+
+### Pergunta 3.1
+
+O grupo optou por não garantir a confidencialidade da _tag_ uma vez que se pretende que o utilizador consiga ver a mesma antes de desencriptar o criptograma.
+
+```python
+hash_secret = getRandomBytes(16)
+
+def Cipher(tag, segredo):
+    date = get_current_date()
+    key = getKeyFromDate(date)
+    cypher_text = cifra(segredo,key)
+    
+    h = hmac(hash_secret, tag+date+cypher_text)
+    
+    cypher = {'hash' : h , 'tag' : tag , 'date' : date , 'mess' : cypher_text}
+    return cypher
+    
+def Decypher(cypher):
+     if(cypher['hash'] == hmac(hash_secret, cypher['tag']+cypher['date']+cypher['mess'])):
+         key = getKeyFromDate(cypher['date'])
+	 segredo = decifra(cypher['mess'],key)
+         return segredo
+    return None
+```
 
 
 
-#4 - Algoritmos e tamanhos de chaves
+
+
+
+## 4 - Algoritmos e tamanhos de chaves
 ### Grupo 4 - Hungria, para as três ECs que emitem certificados "QCert for ESig"
 
 Na Hungria as três ECs que emitem certificados _QCert for ESig_ são:
 * Microsec Micro Software Engineering & Consulting Private Company Limited by Shares
+    
     O último certificado concedido por esta EC foi o certificado _e-Szigno Qualified Pseudonymous CA 2017_ e utiliza um algoritmo de geração de chaves públicas usando curvas elipticas. Este gera uma chave de 256 bits de comprimento. Este tipo de algoritmo com este comprimento de chaves é adequado por pelo menos alguns anos. Para uma solução mais duradoura, o comprimento da chave podia ser aumentado para os 512 bits.
 
 * NETLOCK Informatics and Network Privacy services Limited Company
+    
     O último certificado concedido por esta EC foi o certificado _e-Szigno Qualified Pseudonymous CA 2017_ e utiliza um algoritmo de geração de chaves públicas com o RSA. Este gera uma chave de 2048 bits de comprimento. Este tipo de algoritmo com este comprimento de chaves já não é adquado se pensarmos no curto prazo, pelo que uma chave de 3072 bits seria mais apropriada. Para uma solução mais duradoura, o comprimento da chave podia ser aumentado para os 15360 bits.
 
 * NISZ National Infocommunications Services Company Limited by Shares
- O último certificado concedido por esta EC foi o certificado _Állampolgári Tanúsítványkiadó - Qualified Citizen CA_ e utiliza um algoritmo de geração de chaves públicas com o RSA. Este gera uma chave de 4096 bits de comprimento. Este tipo de algoritmo com este comprimento de chaves é apenas adequado se considerar-mos o curto prazo. Para uma solução mais duradoura, o comprimento da chave podia ser aumentado para os 15360 bits.
+    
+    O último certificado concedido por esta EC foi o certificado _Állampolgári Tanúsítványkiadó - Qualified Citizen CA_ e utiliza um algoritmo de geração de chaves públicas com o RSA. Este gera uma chave de 4096 bits de comprimento. Este tipo de algoritmo com este comprimento de chaves é apenas adequado se considerar-mos o curto prazo. Para uma solução mais duradoura, o comprimento da chave podia ser aumentado para os 15360 bits.
