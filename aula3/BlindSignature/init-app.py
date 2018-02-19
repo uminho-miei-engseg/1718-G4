@@ -52,6 +52,7 @@ def load_settings():
     f = open(settings_file, "r")
     initComponents = f.readline()
     pRDashComponents = f.readline()
+    return initComponents, pRDashComponents
 
 def parseArgs():
     if len(sys.argv) == 1:
