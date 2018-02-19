@@ -34,7 +34,7 @@ Command line app that writes initComponents and pRDashComponents to STDOUT.
 import sys
 from eVotUM.Cripto import eccblind
 
-settings_file = "./settings"
+settings_file = "./signer.settings"
 initComponents = ""
 pRDashComponents = ""
 
