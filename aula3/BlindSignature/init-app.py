@@ -39,7 +39,7 @@ initComponents = ""
 pRDashComponents = ""
 
 def printUsage():
-    print("Usage: python initSigner-app.py")
+    print("Usage: python init-app.py")
 
 def init():
     initComponents, pRDashComponents = eccblind.initSigner()
@@ -47,8 +47,6 @@ def init():
     f.write(initComponents + "\n" + pRDashComponents)
 
 def load_settings():
-    global initComponents
-    global pRDashComponents
     f = open(settings_file, "r")
     initComponents = f.readline()
     pRDashComponents = f.readline()
@@ -56,7 +54,7 @@ def load_settings():
 
 def parseArgs():
     if len(sys.argv) == 1:
-        load_settings()
+        initComponents,pRDashComponents = load_settings()
         print("pRDashComponents: %s" % pRDashComponents)
     elif sys.argv[1] == "-init":
         init()

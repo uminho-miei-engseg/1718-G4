@@ -2,9 +2,9 @@
 ###############################################################################
 # eVotUM - Electronic Voting System
 #
-# generateBlindData-app.py
+# unblindSignature-app.py
 #
-# Cripto-7.1.1 - Commmad line app to exemplify the usage of blindData
+# Cripto-7.3.1 - Commmad line app to exemplify the usage of unblindSignature
 #       function (see eccblind.py)
 #
 # Copyright (c) 2016 Universidade do Minho
@@ -28,8 +28,8 @@
 #
 ###############################################################################
 """
-Command line app that receives Data and pRDashComponents from STDIN and writes
-blindMessage and blindComponents and pRComponents to STDOUT.
+Command line app that receives Blind signature, Blind components and prDashComponents
+from STDIN and writes the unblinded signature to STDOUT.
 """
 
 import sys
@@ -38,28 +38,36 @@ from eVotUM.Cripto import eccblind
 settings_file = "./req.settings"
 
 def printUsage():
-    print("Usage: python ofusca-app.py -msg <mensagem a assinar> -RDash <pRDashComponents>")
+    print("Usage: python unblindSignature-app.py")
 
 def parseArgs():
-    if len(sys.argv) == 5 and sys.argv[1] == "-msg" and sys.argv[3] == "-RDash":
+    if len(sys.argv) == 5 and sys.argv[1] == "-s" and sys.argv[3] == "-RDash":
         main(sys.argv[2], sys.argv[4])
     else:
         printUsage()
 
-def showResults(errorCode, result):
+def showResults(errorCode, signature):
     print("Output")
     if (errorCode is None):
-        blindComponents, pRComponents, blindM = result
-        print("Blind message: %s" % blindM)
-        f = open(settings_file, "w")
-        f.write(blindComponents + "\n" + pRComponents)
-        f.close()
+        print("Signature: %s" % signature)
     elif (errorCode == 1):
         print("Error: pRDash components are invalid")
+    elif (errorCode == 2):
+        print("Error: blind components are invalid")
+    elif (errorCode == 3):
+        print("Error: invalid blind signature format")
 
-def main(data, pRDashComponents):
-    errorCode, result = eccblind.blindData(pRDashComponents, data)
-    showResults(errorCode, result)
+def load_settings():
+    f = open(settings_file, "r")
+    blindComponents = f.readline()
+    pRComponents = f.readline()
+    return blindComponents, pRComponents
+
+def main(blindSignature, pRDashComponents):
+    print("Input")
+    blindComponents, pRComponents = load_settings()
+    errorCode, signature = eccblind.unblindSignature(blindSignature, pRDashComponents, blindComponents)
+    showResults(errorCode, signature)
 
 if __name__ == "__main__":
     parseArgs()

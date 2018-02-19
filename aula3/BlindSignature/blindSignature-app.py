@@ -35,7 +35,14 @@ initComponents from STDIN and writes Blind signature to STDOUT.
 from eVotUM.Cripto import utils
 import sys
 from eVotUM.Cripto import eccblind
-from initSigner-app.py import load_settings
+
+settings_file = "./signer.settings"
+
+def load_settings():
+    f = open(settings_file, "r")
+    initComponents = f.readline()
+    pRDashComponents = f.readline()
+    return initComponents, pRDashComponents
 
 def printUsage():
     print("Usage: python blindSignature-app.py -key <private-key.pem> -bmsg <Blind message>")
@@ -60,7 +67,7 @@ def showResults(errorCode, blindSignature):
         print("Error: invalid blind message format")
 
 def main(eccPrivateKeyPath, blindM):
-    initCoponents, pRDashComponents = load_settings()
+    initComponents, pRDashComponents = load_settings()
     pemKey = utils.readFile(eccPrivateKeyPath)
     print("Input")
     passphrase = raw_input("Passphrase: ")
