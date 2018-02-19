@@ -38,7 +38,7 @@ from eVotUM.Cripto import eccblind
 settings_file = "./req.settings"
 
 def printUsage():
-    print("Usage: python unblindSignature-app.py")
+    print("Usage: python desofusca-app.py -s <Blind Signature> -RDash <pRDashComponents>")
 
 def parseArgs():
     if len(sys.argv) == 5 and sys.argv[1] == "-s" and sys.argv[3] == "-RDash":
