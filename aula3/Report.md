@@ -190,9 +190,19 @@ def main(eccPublicKeyPath, data, signature, req_file):
 Verificamos que o certificado não se encontra revogado, e que embora tenha uma boa escolha de cifras, permite o uso de alguma cifras que o _SSL Labs_ considera fracas. Além disso, só suporta browsers com suporte para SNI.
 
 ### Pergunta 2.1
+#### i. 
+Podem ser encontrados na pasta anexos deste repositório.
+#### ii.
+##### Ministério da Justiça: justiça.gov.pt
+#### iii.
+O facto de se encontrar a palavra _DROWN_ na descrição do protocolo, significa que um teste à vulnerabilidade para o _DROWN Attack_ foi feito pelo SSL Server Test. Esta é uma vulnerabilidade que pode ser explorada se o website permitir a utilização do protocolo SSL v2 e TLS simultâneamente, e pode ser explorada de duas formas:
 
-#### Ministério da Justiça: justiça.gov.pt
+- Um servidor que tenha o SSL v2 ativo, pode ser utilizado para atacar outros servidores que tenham reutilizado a mesma chave RSA, mesmo os servidores que não suportam SSL v2.
+- Um servidor que tenha o SSL v2 ativo e que esteja a correr uma versão vulneravél do OpenSSL também pode ser usado para atacar todos os hostnames que apareçam no certificado.
 
+Através do _DROWN Attack_, será possível quebrar a criptografia por de trás da informação e desta forma ler ou roubar informação sensível como, passwords, números de cartões de crédio ou dados financeiros.
+
+Por forma a proteger um servidor contra este tipo de ataque é necessário que os gestores dos servidores tenham garantias que as chaves utilizadas pelos mesmos não entram em contacto com nenhum servidor que utilize o SSL v2. Uma das formas para desativar o uso deste protocolo será através do upgrade do OpenSSL (1.0.2 -> 1.0.2g e 1.0.1 -> 1.0.1s).
 
 
 
