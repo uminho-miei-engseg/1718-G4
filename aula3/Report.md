@@ -6,7 +6,7 @@
 Nesta pergunta pretende-se que se altere o código de forma a que o _input_ e o _output_ sejam simplificados. Assim:
 
 #### Assinante:
-   
+
   * `initSigner-app.py`
     Neste ficheiro temos o que é necessário para inicializar o processo de assinatura cega. É pretendido que este ficheiro retorne o **R'** utilizado no processo, que corresponde ao ponto da curva aleatóriamente escolhido para cada request. Também é pedido que através da execução de `python initSigner-app.py -init` os componentes _initComponents_ e _pRDashComponents_ sejam calculados e guardados num ficheiro **signer.settings**.
 De notar que o utilizador terá que correr primeiro o comando: `python initSigner-app.py -init` para que o estado interno seja criado com o _initComponents_ e _pRDashComponents_ (R'). Ao correr `python initSigner-app.py` este irá ler do ficheiro **signer.settings** o componente R' e irá imprimi-lo no ecrã. Assim o código alterado no ficheiro base foi:
@@ -181,3 +181,20 @@ def main(eccPublicKeyPath, data, signature, req_file):
     errorCode, validSignature = eccblind.verifySignature(pemPublicKey, signature, blindComponents, pRComponents, data)
     showResults(errorCode, validSignature)
 ```
+
+
+## 2. Protocolo SSL/TLS
+
+### Experiência 2.1
+
+Verificamos que o certificado não se encontra revogado, e que embora tenha uma boa escolha de cifras, permite o uso de alguma cifras que o _SSL Labs_ considera fracas. Além disso, só suporta browsers com suporte para SNI.
+
+### Pergunta 2.1
+
+#### Ministério da Justiça: justiça.gov.pt
+
+
+
+
+
+ 
