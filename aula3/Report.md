@@ -277,9 +277,17 @@ A primeira empresa escolhida foi a [_Eurotux_](https://eurotux.com). A informaç
 A segunda empresa escolhida foi a [Nutrium](https://nutrium.io). Procurando por `nutrium.io` no _shodan_, obtém-se o [endereço de um dos seus servidores _ssh_](https://www.shodan.io/host/40.127.196.98) (40.127.196.98). Analisando este endereço com o `ssh-audit` obtém-se o _output_ disponível [aqui](nutrium.md).
 
 #### 2. Indique o software e versão utilizada pelos servidores ssh.
-Como se pode ver nos outputs correspondentes, o servidor da Eurotux corre o OpenSSH 6.0p1 (revisão Debian-4+deb7u6) e o servidor da Nutrium corre o OpenSSH 6.6.1p1 (Revisão Ubuntu-2ubuntu2.3).
+Como se pode ver nos _outputs_ correspondentes, o servidor da Eurotux corre o `OpenSSH 6.0p1` (revisão _Debian-4+deb7u6_) e o servidor da Nutrium corre o `OpenSSH 6.6.1p1` (Revisão _Ubuntu-2ubuntu2.3_).
 
 #### 3. Qual dessas versões de software tem mais vulnerabilidades?
+Para obter o número de vulnerabilidades de cada versão do OpenSSH, utilizaou-se o [CVE Details](https://www.cvedetails.com/version-search.php) e obtiveram-se os seguintes resultados:
+- versão 6.0p1 (Eurotux):
+![6.0p1](6.0p1.png)
+- versão 6.6.1p1 (Nutrium):
+![6.6.1p1](6.6p1.png)
+
+Como se pode ver, ambas as versões têm 5 vulnerabilidades.
+
 #### 4. E qual tem a vulnerabilidade mais grave (de acordo com o CVSS score identificado no CVE details)?
 #### 5. Para efeitos práticos, a vulnerabilidade indicada no ponto anterior é grave? Porquê?
 
