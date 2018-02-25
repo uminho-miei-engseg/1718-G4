@@ -286,9 +286,10 @@ Para obter o número de vulnerabilidades de cada versão do OpenSSH, utilizaou-s
 - versão 6.6.1p1 (Nutrium):
 ![6.6.1p1](6.6p1.png)
 
-Como se pode ver, ambas as versões têm 5 vulnerabilidades.
+Como se pode ver, ambas as versões têm 5 vulnerabilidades. Para além disso, verifica-se que as vulnerabilidades de ambas as versões são iguais.
 
 #### 4. E qual tem a vulnerabilidade mais grave (de acordo com o CVSS score identificado no CVE details)?
+Ambas as versões têm a vulnerabilidade mais grave (**CVE-2016-8858**) com uma pontuação CVSS de 7.8. 
 #### 5. Para efeitos práticos, a vulnerabilidade indicada no ponto anterior é grave? Porquê?
 
 
