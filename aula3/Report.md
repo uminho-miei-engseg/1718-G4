@@ -272,8 +272,8 @@ Como se pode ver no _output_ do comando `ssh-audit`, neste servidor é usada a v
 Nesta pergunta, pretende-se analisar dois servidores de empresas comerciais em Braga.
 
 #### 1. Anexe os resultados do ssh-audit à sua resposta.
-A primeira empresa escolhida foi a [_Eurotux_](https://eurotux.com). A informação relativa a um dos seus servidores _ssh_ pode ser encontrada [aqui](https://www.shodan.io/host/194.107.127.25). O _output_ obtido correndo a ferramenta `ssh-audit` para o servidor 194.107.127.25 encontrado com o _shodan_pode ser consultado [aqui](eurotux.md).
+A primeira empresa escolhida foi a [_Eurotux_](https://eurotux.com). A informação relativa a um dos seus servidores _ssh_ pode ser encontrada [aqui](https://www.shodan.io/host/194.107.127.25). O _output_ obtido correndo a ferramenta `ssh-audit` para o servidor 194.107.127.25 encontrado com o _shodan_ pode ser consultado [aqui](eurotux.md).
 
-A segunda empresa escolhida foi a [Nutrium](nutrium.io). Procurando por `nutrium.io` no _shodan_, obtém-se o [endereço de um dos seus servidores _ssh_](https://www.shodan.io/host/40.127.196.98). Analisando este endereço com o `ssh-audit` obtém-se o _output_ disponível [aqui].
+A segunda empresa escolhida foi a [Nutrium](https://nutrium.io). Procurando por `nutrium.io` no _shodan_, obtém-se o [endereço de um dos seus servidores _ssh_](https://www.shodan.io/host/40.127.196.98) (40.127.196.98). Analisando este endereço com o `ssh-audit` obtém-se o _output_ disponível [aqui](nutrium.md).
 
 
