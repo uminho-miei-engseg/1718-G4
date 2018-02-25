@@ -189,9 +189,37 @@ def main(eccPublicKeyPath, data, signature, req_file):
 
 Verificamos que o certificado não se encontra revogado, e que embora tenha uma boa escolha de cifras, permite o uso de alguma cifras que o _SSL Labs_ considera fracas. Além disso, só suporta browsers com suporte para SNI.
 
-### Pergunta 2.1
+### Pergunta 2.1 - Escolha quatro sites de Ministérios do Governo Português.
 
-#### Ministério da Justiça: justiça.gov.pt
+#### i) Anexe os resultados do *SSL Server test* à sua resposta.
+
+O grupo escolheu os seguintes sites para fazer a análise do SSL Test:
+
+- [Ministério da Educação](http://www.dge.mec.pt/) - [SSL Teste](https://github.com/uminho-miei-engseg/1718-G4/blob/master/aula3/Anexos/SSLTeste_MinisterioEducacao.pdf)
+
+- [Ministério da Justiça](http://www.dgaj.mj.pt/DGAJ/sections/home) - [SSL Teste](https://github.com/uminho-miei-engseg/1718-G4/blob/master/aula3/Anexos/SSLTest_MiniterioJustica.pdf)
+
+- [Ministerio da Saúde](https://www.sns.gov.pt/) - como tem dois servidores apresentam-se os dois testes [SSL Teste1](https://github.com/uminho-miei-engseg/1718-G4/blob/master/aula3/Anexos/SSLTeste_MinisterioSaude1.pdf) e [SSL Teste](https://github.com/uminho-miei-engseg/1718-G4/blob/master/aula3/Anexos/SSLTeste_MinisterioSaude2.pdf)
+
+- [Ministerio das Finanças](http://www.portaldasfinancas.gov.pt/at/html/index.html) - [SSL Teste](https://github.com/uminho-miei-engseg/1718-G4/blob/master/aula3/Anexos/SSLTeste_MinisterioFinancas.pdf)
+
+  ​
+
+#### ii) Analise o resultado do *SSL Server test* relativo ao site escolhido com pior rating. Que comentários pode fazer sobre a sua segurança. Porquê? 
+
+Quer o site do ministério da educação quer o site do ministério das finanças apresentam a pior classificação - A^-^. 
+
+Verifica-se nos testes que ambos não suportam _Forward Secrecy_, esa é uma propriedade dos protocolos de comuniação segura em que o comprometimento de chaves de longo termo não comprometem as chaves de sessões passadas, ou seja, proteje sessões pasadas contra comprometimentos futuros da chave privada. 
+
+Além disso, o ministério das finanças não suporta _Authenticated Encryption_. Isto constitui um ponto desfavorável na segurança uma vez que a AEAD é a única abordagem criptográfica sem vulnerabilidades e além disso fornece autenticação forte, troca de chaves e _Forward Secrecy_. 
+
+Por último, verificou-se também que todas as cifras usadas pelo TLS 1.2 são consideradas fracas pelo _SSL Lab_.
+
+​     
+
+
+
+
 
 
 
