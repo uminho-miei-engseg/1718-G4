@@ -209,7 +209,7 @@ O grupo escolheu os seguintes sites para fazer a análise do SSL Test:
 
 Quer o site do ministério da educação quer o site do ministério das finanças apresentam a pior classificação - A^-^. 
 
-Verifica-se nos testes que ambos não suportam _Forward Secrecy_, esa é uma propriedade dos protocolos de comuniação segura em que o comprometimento de chaves de longo termo não comprometem as chaves de sessões passadas, ou seja, proteje sessões pasadas contra comprometimentos futuros da chave privada. 
+Verifica-se nos testes que ambos não suportam _Forward Secrecy_, esa é uma propriedade dos protocolos de comuniação segura em que o comprometimento de chaves de longo termo não comprometem as chaves de sessões passadas, ou seja, protege sessões pasadas contra comprometimentos futuros da chave privada. 
 
 Além disso, o ministério das finanças não suporta _Authenticated Encryption_. Isto constitui um ponto desfavorável na segurança uma vez que a AEAD é a única abordagem criptográfica sem vulnerabilidades e além disso fornece autenticação forte, troca de chaves e _Forward Secrecy_. 
 
@@ -219,9 +219,9 @@ Por último, verificou-se também que todas as cifras usadas pelo TLS 1.2 são c
 
 O facto de se encontrar a palavra _DROWN_ na descrição do protocolo, significa que um teste à vulnerabilidade para o _DROWN Attack_ foi feito pelo SSL Server Test. Esta é uma vulnerabilidade que pode ser explorada se o website permitir a utilização do protocolo SSL v2 e TLS simultâneamente, e pode ser explorada de duas formas:
 
-- Um servidor que tenha o SSL v2 ativo, pode ser utilizado para atacar outros servidores que tenham reutilizado a mesma chave RSA, mesmo os servidores que não suportam SSL v2.
+- Um servidor que tenha o SSL v2 ativo pode ser utilizado para atacar outros servidores que tenham reutilizado a mesma chave RSA, mesmo os servidores que não suportam SSL v2.
 - Um servidor que tenha o SSL v2 ativo e que esteja a correr uma versão vulneravél do OpenSSL também pode ser usado para atacar todos os hostnames que apareçam no certificado.
-Através do _DROWN Attack_, será possível quebrar a criptografia por de trás da informação e desta forma ler ou roubar informação sensível como, passwords, números de cartões de crédio ou dados financeiros.
+Através do _DROWN Attack_, será possível quebrar a criptografia por detrás da informação e desta forma ler ou roubar informação sensível como, passwords, números de cartões de crédio ou dados financeiros.
 
 Por forma a proteger um servidor contra este tipo de ataque é necessário que os gestores dos servidores tenham garantias que as chaves utilizadas pelos mesmos não entram em contacto com nenhum servidor que utilize o SSL v2. Uma das formas para desativar o uso deste protocolo será através do upgrade do OpenSSL (1.0.2 -> 1.0.2g e 1.0.1 -> 1.0.1s).
 
@@ -294,6 +294,7 @@ Ambas as versões têm a vulnerabilidade mais grave (**CVE-2016-8858**) com uma 
 Esta vulnerabilidade resulta da possibilidade de um atacante remoto causar um ataque de _denial of service_, enviando vários pedidos _KEXINIT_ duplicados. 
 Abaixo são apresentadas as características da vulnerabilidade **CVE-2016-8858** que pesam no cálculo da sua pontuação CVSS:
 ![cvss](cvss.png)
-Como se pode ver na imagem anterior, este ataque pode levar à perda completa da disponibilidade do recurso afetado (neste caso, um servidor _ssh_), através de um ataque de baixa complexidade que não exige nenhum tipo de autenticação. Por essa razão, pode-se considerar que a vulnerabilidade é grave.
+
+Como se pode ver na imagem anterior, este ataque pode levar à perda completa da disponibilidade do recurso afetado (neste caso, um servidor _ssh_) através de um ataque de baixa complexidade que não exige nenhum tipo de autenticação. Por essa razão, pode-se considerar que a vulnerabilidade é grave.
 
 
