@@ -291,5 +291,9 @@ Como se pode ver, ambas as versões têm 5 vulnerabilidades. Para além disso, v
 #### 4. E qual tem a vulnerabilidade mais grave (de acordo com o CVSS score identificado no CVE details)?
 Ambas as versões têm a vulnerabilidade mais grave (**CVE-2016-8858**) com uma pontuação CVSS de 7.8. 
 #### 5. Para efeitos práticos, a vulnerabilidade indicada no ponto anterior é grave? Porquê?
+Esta vulnerabilidade resulta da possibilidade de um atacante remoto causar um ataque de _denial of service_, enviando vários pedidos _KEXINIT_ duplicados. 
+Abaixo são apresentadas as características da vulnerabilidade **CVE-2016-8858** que pesam no cálculo da sua pontuação CVSS:
+![cvss](cvss.png)
+Como se pode ver na imagem anterior, este ataque pode levar à perda completa da disponibilidade do recurso afetado (neste caso, um servidor _ssh_), através de um ataque de baixa complexidade que não exige nenhum tipo de autenticação. Por essa razão, pode-se considerar que a vulnerabilidade é grave.
 
 
