@@ -8,7 +8,7 @@ Nesta pergunta pretende-se que se altere o código de forma a que o _input_ e o 
 #### Assinante:
 
   * `initSigner-app.py`
-    Neste ficheiro temos o que é necessário para inicializar o processo de assinatura cega. É pretendido que este ficheiro retorne o **R'** utilizado no processo, que corresponde ao ponto da curva aleatóriamente escolhido para cada request. Também é pedido que através da execução de `python initSigner-app.py -init` os componentes _initComponents_ e _pRDashComponents_ sejam calculados e guardados num ficheiro **signer.settings**.
+    Neste ficheiro temos o que é necessário para inicializar o processo de assinatura cega. É pretendido que este ficheiro retorne o **R'** utilizado no processo, que corresponde ao ponto da curva aleatoriamente escolhido para cada request. Também é pedido que através da execução de `python initSigner-app.py -init` os componentes _initComponents_ e _pRDashComponents_ sejam calculados e guardados num ficheiro **signer.settings**.
 De notar que o utilizador terá que correr primeiro o comando: `python initSigner-app.py -init` para que o estado interno seja criado com o _initComponents_ e _pRDashComponents_ (R'). Ao correr `python initSigner-app.py` este irá ler do ficheiro **signer.settings** o componente R' e irá imprimi-lo no ecrã. Assim o código alterado no ficheiro base foi:
 ```python
 settings_file = "./signer.settings"
@@ -41,7 +41,7 @@ def parseArgs():
 ```
 
 * `blindSignature-app.py`
-    Este ficheiro é o que contém o código necessário para realizar uma "blind signature". É pretendido que sejam adicionadas as opções `-key <chave_privada>` e `-bmsg BLIND_MESSAGE`, que permitirão o uso de um ficheiro com a chave privada do assinante e ler o ficheiro que contem a blind_message, respetivamente. Deverá retornar ao utilizador a _BlindSignature_ (s). Apesar de ser pedida uma passphrase, ela não foi utilizada, pelo que deverá ser ignorada.
+    Este ficheiro é o que contém o código necessário para realizar a assinatura cega. É pretendido que sejam adicionadas as opções `-key <chave_privada>`, que permitirá o uso de um ficheiro com a chave privada do assinante e `-bmsg BLIND_MESSAGE`, que corresponderá À mensagme que se pretende assinar. Deverá retornar ao utilizador a _BlindSignature_ (s). Apesar de ser pedida uma passphrase, ela não foi utilizada, pelo que deverá ser ignorada.
 O código alterado foi o seguinte:
 ```python
 def load_settings():
@@ -203,27 +203,25 @@ O grupo escolheu os seguintes sites para fazer a análise do SSL Test:
 
 - [Ministerio das Finanças](http://www.portaldasfinancas.gov.pt/at/html/index.html) - [SSL Teste](https://github.com/uminho-miei-engseg/1718-G4/blob/master/aula3/Anexos/SSLTeste_MinisterioFinancas.pdf)
 
-  ​
-
 #### ii) Analise o resultado do *SSL Server test* relativo ao site escolhido com pior rating. Que comentários pode fazer sobre a sua segurança. Porquê? 
 
-Quer o site do ministério da educação quer o site do ministério das finanças apresentam a pior classificação - A^-^. 
+Quer o site do ministério da educação quer o site do ministério das finanças apresentam a pior classificação - A-. 
 
-Verifica-se nos testes que ambos não suportam _Forward Secrecy_, esa é uma propriedade dos protocolos de comuniação segura em que o comprometimento de chaves de longo termo não comprometem as chaves de sessões passadas, ou seja, protege sessões pasadas contra comprometimentos futuros da chave privada. 
+Verifica-se nos testes que ambos não suportam _Forward Secrecy_, essa é uma propriedade dos protocolos de comunicação segura em que o comprometimento de chaves de longo termo não comprometem as chaves de sessões passadas, ou seja, protege sessões passadas contra comprometimentos futuros da chave privada. 
 
-Além disso, o ministério das finanças não suporta _Authenticated Encryption_. Isto constitui um ponto desfavorável na segurança uma vez que a AEAD é a única abordagem criptográfica sem vulnerabilidades e além disso fornece autenticação forte, troca de chaves e _Forward Secrecy_. 
+Além disso, o Ministério das Finanças não suporta _Authenticated Encryption_. Isto constitui um ponto desfavorável na segurança uma vez que a AEAD é a única abordagem criptográfica sem vulnerabilidades conhecidas e além disso fornece autenticação forte, troca de chaves e _Forward Secrecy_. 
 
-Por último, verificou-se também que todas as cifras usadas pelo TLS 1.2 são consideradas fracas pelo _SSL Lab_.
+Por último, verificou-se também que, para o Ministério das Finanças, todas as cifras usadas pelo TLS 1.2 são consideradas fracas pelo _SSL Lab_.
 
 #### iii) É natural que tenha reparado na seguinte informação: "*DROWN*" na secção de detalhe do protocolo. O que significa, para efeitos práticos?
 
-O facto de se encontrar a palavra _DROWN_ na descrição do protocolo, significa que um teste à vulnerabilidade para o _DROWN Attack_ foi feito pelo SSL Server Test. Esta é uma vulnerabilidade que pode ser explorada se o website permitir a utilização do protocolo SSL v2 e TLS simultâneamente, e pode ser explorada de duas formas:
+O facto de se encontrar a palavra _DROWN_ na descrição do protocolo, significa que um teste à vulnerabilidade para o _DROWN Attack_ foi feito pelo SSL Server Test. Esta é uma vulnerabilidade que pode ser explorada se o website permitir a utilização do protocolo SSL v2 e TLS simultaneamente, e pode ser explorada de duas formas:
 
 - Um servidor que tenha o SSL v2 ativo pode ser utilizado para atacar outros servidores que tenham reutilizado a mesma chave RSA, mesmo os servidores que não suportam SSL v2.
 - Um servidor que tenha o SSL v2 ativo e que esteja a correr uma versão vulneravél do OpenSSL também pode ser usado para atacar todos os hostnames que apareçam no certificado.
-Através do _DROWN Attack_, será possível quebrar a criptografia por detrás da informação e desta forma ler ou roubar informação sensível como, passwords, números de cartões de crédio ou dados financeiros.
+Através do _DROWN Attack_, será possível quebrar a criptografia por detrás da informação e desta forma ler ou roubar informação sensível como, passwords, números de cartões de crédito ou dados financeiros.
 
-Por forma a proteger um servidor contra este tipo de ataque é necessário que os gestores dos servidores tenham garantias que as chaves utilizadas pelos mesmos não entram em contacto com nenhum servidor que utilize o SSL v2. Uma das formas para desativar o uso deste protocolo será através do upgrade do OpenSSL (1.0.2 -> 1.0.2g e 1.0.1 -> 1.0.1s).
+Por forma a proteger um servidor contra este tipo de ataque é necessário que os gestores dos servidores tenham garantias que as chaves utilizadas pelos mesmos não entram em contacto com nenhum servidor que utilize o SSL v2. Uma das formas para desativar o uso deste protocolo será através do upgrade do OpenSSL (versões 1.0.2 -> 1.0.2g e 1.0.1 -> 1.0.1s).
 
 ## 3 - Protocolo SSH
 
