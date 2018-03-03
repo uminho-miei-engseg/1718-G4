@@ -21,7 +21,7 @@ Para aceder ao serviço anónimo, o utilizador do serviço começa por aceder ao
 
 ## Pergunta 2
 
-O grupo escolheu  o realizar o _Projeto 2_ que consiste em desenvolver um gestor de passwords com base em QrCodes. De forma geral, o processo de login deve funcionar da seguinte forma:
+O grupo escolheu  realizar o _Projeto 2_ que consiste em desenvolver um gestor de passwords com base em QrCodes. De forma geral, o processo de login deve funcionar da seguinte forma:
 
 - quando o utilizador acede a um website, o mesmo gera um código QR;
 - o utilizador lê esse código com o seu telemóvel, no qual já se encontra a aplicação de gestão de passwords instalada;
@@ -40,11 +40,11 @@ Sempre que se acede a um site em que é necessário fazer *login*, gera-se um QR
 - _id_ da ligação entre o cliente e o servidor (de forma a saber em que sessão se está a fazer *login*);
 - assinatura por parte do servidor dos campos acima referidos, de forma a provar que o local para onde vão ser enviadas as credenciais é da confiança do servidor;
 
-O facto de utilizarmos técnicas de assinatura digital requere que o sistema seja capaz de lidar com a Infraestrutura de Chave Pública, principalmente no que toca à utilização dos certificados digitais.
+O facto de utilizarmos técnicas de assinatura digital requer que o sistema seja capaz de lidar com a Infraestrutura de Chave Pública, principalmente no que toca à utilização dos certificados digitais.
 
 **Importante**: O certificado utilizado na assinatura tem de ser da entidade responsável pelo serviço em que o utilizador se pretende autenticar. Caso não se faça esta verificação, o utilizador está vulnerável a que outro serviço que conste na base de dados de credenciais do utilizador peça as credenciais que não correspondem às suas e que estas credenciais sejam enviadas para  o mesmo.
 
-### 2. Leitura do QR Code e Autenticação por parte do cliente
+#### 2. Leitura do QR Code e Autenticação por parte do cliente
 
 A leitura do código QR poderá ser feita pela aplicação de gestão de passwords ou poderá ser lida por uma aplicação genérica de leitura de QR codes que, depois de ler o código, reencaminha os dados nele contidos para a aplicação de gestão de passwords, doravante chamada de AGP. Quando receber estes dados, a AGP deverá verificar a assinatura digital. Caso a verificação falhe, o pedido é descartado. Caso contrário, executam-se os seguintes passos:
 
@@ -53,9 +53,9 @@ A leitura do código QR poderá ser feita pela aplicação de gestão de passwor
 
 Reitera-se que a AGP terá de saber lidar com a Infraestrutura de chave pública de forma a poder enviar de forma segura as credenciais.
 
-### 3. Autenticação por parte do servidor
+#### 3. Autenticação por parte do servidor
 
-Uma vez recebidas as credenciais, o servidor deverá proceder à autenticação com as mesmas. Se as credenciais estiverem corretas, deverá enviar uma resposta para o cliente ligado ao servidor de login bem sucedido. caso contrário, deverá avisar o utilizador que as credenciais são inválidas.
+Uma vez recebidas as credenciais, o servidor deverá proceder à autenticação com as mesmas. Se as credenciais estiverem corretas, deverá enviar uma resposta para o cliente ligado ao servidor de login bem sucedido. Caso contrário, deverá avisar o utilizador que as credenciais são inválidas.
 
 **Nota**: poderá ser necessário ter em conta aspetos temporais, nomeadamente o tempo de vida de cada ligação (e consequentemente, o tempo de vida de cada id de ligação).
 
