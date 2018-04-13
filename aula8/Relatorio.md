@@ -1,3 +1,11 @@
+## Pergunta 1
+
+Tendo em conta a estimativa apresentada na aula e de acordo com o site https://informationisbeautiful.net/visualizations/million-lines-of-code/:
+Linux 3.1 - 15 milhões LOC -> 75 - 750 mil bugs
+Facebook - 61 milhões LOC -> 300 mil a 3 milhões bugs
+Car software - 100 milhões LOC -> 500 mil a 5 milhões bugs
+Google - 2000 milhões LOC -> 10 milhões a 100 milhões bugs
+
 ## Pergunta 2
 
 * Vulnerabilidades de Projeto:
@@ -19,6 +27,7 @@ Como correção, utilizar bibliotecas standard para cifrar as passwords antes de
 Como correção, a configuração da aplicação deverá assegurar que o SSL está em utilização sempre que se transmite dados.
 
 ## Pergunta 1.3
+
 Uma vulnerabilidade dia-zero é uma em que as partes interessadas em resolver a vulnerabilidade não estão cientes 
 da existência da mesma. Estas vulnerabilidades podem ser particularmente nefastas quando comparadas com as
 que não são dia-zero dado que qualquer ataque baseado nestas vulnerabilidades demorará, à partida, mais tempo a 
