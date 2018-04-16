@@ -27,4 +27,5 @@ de segurança _Policy and Compliance_ na actividade A do nível de maturidade 1.
 identificam-se os regulamentos com os quais deve haver concordância.
 
 Para levar em conta o RGPD, a empresa deverá estar no nível de maturidade 3, dado que só nesta 
-fase se exige que se adopte uma solução para auditar os dados recolhidos.
+fase se exige que se adopte uma solução para auditar os dados recolhidos, pressupondo que 
+nestas auditorias se auditam os dados recolhidos de acordo com as normas de privacidade do RGPD.
