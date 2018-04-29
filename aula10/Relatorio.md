@@ -41,3 +41,45 @@ Ao contrário do que seria de esperar, o programa não termina sempre em Segment
 
 - No ficheiro `RootExploit.c` a vulnerabilidade de _buffer overflow_ existe porque a função `gets` não valida o tamanho do input. Por essa razão, é possível escrever na variável `pass` caso se insira um input com tamanho superior a 4. Como para obter as confirmação das permissões de root basta que a variável `pass` tenha uma valor diferente de 0, basta inserir uma string com 5 caracteres. 
 - No ficheiro `0-simple.c` a vulnerabilidade existe e é explorada pelas mesmas razões do exemplo anterior, no entanto, o tamanho do input necessário para explorar a vulnerabilidade tem que ser superior em mais do que uma unidade ao tamanho do buffer. Este facto pode estar relacionado com o alinhamento de memória forçado pelo compilador. 
+
+## Experiência 1.5
+Na função segura, o output da função `printf` é formatado pela string `"%s"`, pelo que qualquer sequência de formatação no input ("%s", "%d", "%p",...) vai ser lida de forma literal, i.e. o output não vai ser expandido para substituir as ocorrências destes padrões.
+Na função vulnerável, como a string passada à função `printf` é diretamente aquela que é lida, caso esta contenha alguma sequência de formatação, esta vai ser substituída por um valor indeterminado, dado que não são passa nenhum argumento adicional a esta função. Abaixo apresenta-se uma imagem que demonstra o que foi dito:
+
+![](./exp1_5.png)
+
+
+
+# Pergunta 1.4
+
+Como se pode verificar pelo código, embora a leitura das strings esteja protegida por invocações da função `fgets`, o número de bytes dados no output é apenas limitado pelo número dado como resposta à primeira pergunta do programa. Desta forma, é possível obter o conteúdo de outras posições da memória, mesmo aquelas que estão fora dos limites do array. A imagem abaixo demonstra como é possível ler 120 bytes, apesar do array ter apenas 100 bytes.
+
+![Pergunta 1.4](ex_1_4.png)
+
+
+
+# Pergunta 1.5
+
+Depois de compilar o programa, testou-se por tentativa e erro, quantos bytes tem de ter o input para começar a alterar o valor da variável. Constatou-se então que apenas ao 78º byte é que se começa a alterar o valor da variável `control`. Dado que se pretende obter o valor _0x61626364_ (ou *abcd* em ASCII) na variável, temos de inserir uma string qualquer de 78 bytes como input, concatenada com a string _dcba_, uma vez que os inteiros são guardados em memória no formato _little-endian_ (byte menos significativo primeiro).  Abaixo demonstra-se como fazer o que foi descrito:
+
+![](ex1_5.png)
+
+
+
+# Pergunta 1.6
+
+Inicialmente, compilou-se o programa com a flag de debug (`-g`) para podermos analisar os endereços das variáveis do programa.  Seguindo passos semelhantes aos da _experiência 7_, verificou-se que a função `win` está no endereço _0x555555554740_. Verificou-se também que se começa a alterar a variável `fp` a partir do 74º byte de input. À semelhança do que se fez antes, converteu-se o endereço da função para ASCII e adicionou-se o resultado invertido (devido à disposição em _little-endian_) a uma string de 73 bytes de forma a mudar o valor do `fp`. O valor ASCII correspondente ao endereço da função `win` é _UUUUG@_ (_@GUUUU_ em _little endian_). Basta então concatenar esta string a outra com 73 bytes para obter o resultado pretendido, tal como se demonstra abaixo:
+
+![](ex1_6.png)
+
+# Pergunta 1.7
+
+Este exercício é em tudo semelhante aos dois anteriores, excepto que desta vez se pretende modificar o valor de retorno da função `main`. 
+
+Compilou-se então o programa com a flag de debug para se obterem os seguintes valores:
+
+- endereço de _buffer_: 0x7fffffffffe0c0
+- endereço do _rip_: 0x7fffffffffe108
+- endereço de _win_: 0x5555555546f0
+
+Subtraindo o endereço do _buffer_ ao do _rip_, verifica-se que é necessário escrever 72 bytes para começar a alterar o conteúdo do _rip_. Tal como se fez nos exercícios anteriores, escrevemos o endereço da função `win` em ASCII e `little-endian`, de forma a obtermos o sufixo a adicionar a uma string qualquer de 71 bytes.
