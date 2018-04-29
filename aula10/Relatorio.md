@@ -68,7 +68,7 @@ Depois de compilar o programa, testou-se por tentativa e erro, quantos bytes tem
 
 # Pergunta 1.6
 
-Inicialmente, compilou-se o programa com a flag de debug (`-g`) para podermos analisar os endereços das variáveis do programa.  Seguindo passos semelhantes aos da _experiência 7_, verificou-se que a função `win` está no endereço _0x555555554740_. Verificou-se também que se começa a alterar a variável `fp` a partir do 74º byte de input. À semelhança do que se fez antes, converteu-se o endereço da função para ASCII e adicionou-se o resultado invertido (devido à disposição em _little-endian_) a uma string de 73 bytes de forma a mudar o valor do `fp`. O valor ASCII correspondente ao endereço da função `win` é _UUUUG@_ (_@GUUUU_ em _little endian_). Basta então concatenar esta string a outra com 73 bytes para obter o resultado pretendido, tal como se demonstra abaixo:
+Inicialmente, compilou-se o programa com a flag de debug (`-g`) para podermos analisar os endereços das variáveis do programa.  Seguindo passos semelhantes aos da _experiência 7_, verificou-se que a função `win` está no endereço _0x555555554740_. Verificou-se também que se começa a alterar a variável `fp` a partir do 73º byte de input. À semelhança do que se fez antes, converteu-se o endereço da função para ASCII e adicionou-se o resultado invertido (devido à disposição em _little-endian_) a uma string de 72 bytes de forma a mudar o valor do `fp`. O valor ASCII correspondente ao endereço da função `win` é _UUUUG@_ (_@GUUUU_ em _little endian_). Basta então concatenar esta string a outra com 73 bytes para obter o resultado pretendido, tal como se demonstra abaixo:
 
 ![](ex1_6.png)
 
