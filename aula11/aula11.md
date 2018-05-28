@@ -48,5 +48,15 @@ Ao executar o código dá _segmentation fault_ porque não e possível alocar a 
 3. Dá _segmentation fault_ porque não e possível alocar a quantidade de memória pretendida. 
 
 ## Pergunta 1.3
+1. A vulnerabilidade resulta da conversão de valores de variáveis entre tipos _signed_ (`int`) e _unsigned_ (`size_t`).
+Uma vez que a variável `tamanho` e `tamanho_real` têm tipos diferentes, `size_t` e `int` respetivamente, caso se passe no argumento `tamanho` um valor que exceda o limite superior de um `int`, na instrução `tamanho_real = tamanho - 1`  a variável `tamanho_real` passa a armazenar uma valor negativo, devido ao cast para um tipo _signed_. No entanto, quando se passa o `tamanho_real` como argumento da função `malloc` ele é convertido para `size_t` e passa a representar um valor positivo, superior ao do limite superior do tipo `int`.
 
-Uma vez que a variável `tamanho` e `tamanho_real` têm tipos diferentes, `size_t` e `int` respetivamente, caso se passe no argumento `tamanho` um valor que exceda o limite superior de um `int`, na instrução `tamanho_real = tamanho - 1`  a variável `tamanho_real` passa a armazenar uma valor negativo. No entanto o programa não falha porque quando se passa o `tamanho_real` no `malloc` ele é a ser convertido para `size_t` e fica positivo. 
+2. Esta vulnerabilidade pode ser despelotada com a seguinte função `main`:
+```c
+int main() {
+  char buf[MAX_SIZE];
+  vulneravel(buf,-1);
+}
+```
+
+3. Durante a execução, obtém-se um _segmentation fault_ resultante de se tentar alocar um bloco de memória muito grande (relembra-se que nas condições indicadas anteriormente, o valor do argumento da função malloc excederá o limite superior dos inteiros com sinal).
